@@ -81,9 +81,11 @@
                                         <td><?php echo $row['family_name']; ?></td>
                                         <td>
                                             <center>
-                                                <a title="Edit" href="edit_family.php?id=<?php echo $row['family_Id']; ?>" class="btn btn-info btn-xs"><i class="fa fa-edit fa-fw"></i></a>
-                                                <a title="Delete" href="delete_family.php?id=<?php echo $row['family_Id']; ?>" class="btn btn-danger btn-xs"><i class="fa fa-trash fa-fw"></i></a>
-                                            </center>                                            
+                                                <?php if($_SESSION['role'] == 1): ?>
+                                                    <a title="Edit" href="edit_family.php?id=<?php echo $row['family_Id']; ?>" class="btn btn-info btn-xs"><i class="fa fa-edit fa-fw"></i></a>
+                                                    <a title="Delete" href="delete_family.php?id=<?php echo $row['family_Id']; ?>" class="btn btn-danger btn-xs"><i class="fa fa-trash fa-fw"></i></a>
+                                                <?php endif; ?>
+                                        </center>
                                         </td>
                                     </tr>
                                     <?php $counter++; ?>

@@ -19,7 +19,7 @@ if(isset($_GET['id'])) {
 
 if(isset($_POST['delete'])) {
 
-    $delete_query = $db->delete("DELETE FROM order WHERE order_Id = {$id}");
+    $delete_query = $db->delete("DELETE FROM `order` WHERE order_Id = {$id}");
 
     if($delete_query) {
         $message = "Order Record with ID = {$id} deleted from database";

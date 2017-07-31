@@ -25,6 +25,7 @@
         if($verify_pass){
             $_SESSION['userSession'] = $row['user_ID'];
             $_SESSION['fullname']    = $row['full_name'];
+            $_SESSION['role']        = $row['role'];
             header('Location: dashboard.php');
         }else{
             $msg = "<div class='alert alert-danger'>
