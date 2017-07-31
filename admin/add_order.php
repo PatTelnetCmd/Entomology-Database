@@ -12,6 +12,7 @@
     if(isset($_POST['submit'])) {
         
         $order = $_POST['insect_order'];
+        $order = ucfirst(strtolower($db->escape_string($order)));
         
         $msg = '';
         

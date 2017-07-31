@@ -1,7 +1,11 @@
-<?php require_once 'libs/database.php'; ?>
-<?php include 'includes/functions.php'; ?>
-<?php include 'includes/head.php'; ?>
 <?php
+session_start();
+
+require_once '../libs/config.php';
+require_once '../libs/database.php';
+require 'includes/functions.php';
+
+$db = new database();              //instantiating database object
 
 /* if not logged in */
 if(!isset($_SESSION['userSession']) || $_SESSION['userSession'] = ""){
@@ -15,7 +19,7 @@ if(isset($_GET['id'])) {
 
 if(isset($_POST['delete'])) {
 
-    $delete_query = $db->delete("DELETE FROM genus WHERE genus_ID = {$id}");
+    $delete_query = $db->delete("DELETE FROM genus WHERE genus_id = {$id}");
 
     if($delete_query) {
         $message = "Genus Record with ID = {$id} deleted from database";
@@ -24,68 +28,79 @@ if(isset($_POST['delete'])) {
 }
 
 
-
 ?>
 
-<body>
-<!-- container section start -->
-<section id="container" class="">
-    <!--header start-->
-    <?php include 'includes/header.php'; ?>
-    <!--header end-->
 
-    <!--sidebar start-->
-    <?php include 'includes/sidebar_nav.php'; ?>
-    <!--sidebar end-->
+<!-- header -->
+<?php include 'includes/header.php'; ?>
 
-    <!--main content start-->
-    <section id="main-content">
-        <section class="wrapper">
-            <!-- page start-->
-            <div class="row">
-                <div class="col-lg-12">
-                    <!--breadcrumbs start -->
-                    <ul class="breadcrumb">
-                        <li><a href="dashboard.php"><i class="icon_house_alt"></i> Home</a></li>
-                        <li><a href="#">Genus</a></li>
-                        <li class="active">Delete Genus Record</li>
-                        <li class="pull-right"><a href="Genus_list.php">Genus List</a></li>
-                    </ul>
-                    <!--breadcrumbs end -->
-                </div>
-            </div>
+<!-- =============================================== -->
 
-            <div class="row">
-                <div class="col-lg-12">
-                    <section class="panel panel-danger">
-                        <div class="panel-heading">
-                            Confirm Delete
-                        </div>
+<!-- siderbar navigation -->
 
-                        <div class="panel-body">
-                            <div class="alert alert-danger">
-                                Are you sure you want to delete record?
-                            </div>
+<?php include 'includes/sidebar_nav.php'; ?>
 
-                            <form class="form-horizontal" action="" method="post" enctype="multipart/form-data">
-                                <div class="form-group">
-                                    <div class="col-lg-12">
-                                        <button class="btn btn-danger" type="submit" name="delete"><span class="icon-trash"></span> DELETE</button>
-                                        <a class="btn btn-default" href="plant_list.php" title=""><span class="icon_target"></span> CANCEL</a></td>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </section>
-                </div>
-            </div>
-            <!-- page end-->
-        </section>
+<!-- =============================================== -->
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            Genus
+            <small>General kind of Insect species</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="dashboard.php"><i class="fa fa-dashboard"></i> Insects</a></li>
+            <li><a href="genus_list.php">Genus</a></li>
+            <li class="active">Delete</li>
+        </ol>
     </section>
-    <!--main content end-->
-</section>
-<!-- container section end -->
 
-<!-- footer start -->
+    <!-- Main content -->
+    <section class="content">
+
+        <div class='row'>
+            <div class='col-md-12'>
+
+                <?php echo isset($msg) && !empty($msg) ? $msg : ''; ?>
+
+                <fieldset>
+                    <legend>Insect Genus</legend>
+
+                    <form action='' method='post' role='form'>
+
+                        <div class='box box-danger'>
+                            <div class="box-header">
+                                Confirm Delete
+                            </div>
+                            <div class='box-body'>
+
+                                <div class="alert alert-danger">
+                                    Are you sure you want to delete record?
+                                </div>
+
+                                <div class='form-group'>
+                                    <input type='submit' name='delete' class='btn btn-danger' value='DELETE'>
+                                    <a class="btn btn-info" href="genus_list.php" title=""> CANCEL </a>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </form>
+                </fieldset>
+
+            </div>
+        </div>
+
+    </section>
+    <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+
+<!-- footer -->
+<!-- =================================================================== -->
+
 <?php include 'includes/footer.php'; ?>
-<!-- footer end -->
+

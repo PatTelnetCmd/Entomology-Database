@@ -19,11 +19,11 @@ if(isset($_GET['id'])) {
 
 if(isset($_POST['delete'])) {
 
-    $delete_query = $db->delete("DELETE FROM species WHERE species_Id = {$id}");
+    $delete_query = $db->delete("DELETE FROM order WHERE order_Id = {$id}");
 
     if($delete_query) {
         $message = "Order Record with ID = {$id} deleted from database";
-        redirect_to('species_list.php', $message);    //redirecting to insect list page
+        redirect_to('order_list.php', $message);    //redirecting to insect list page
     }
 }
 
@@ -47,12 +47,12 @@ if(isset($_POST['delete'])) {
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
-            Species
-            <small>Kind of insect</small>
+            Order
+            <small>Describe order of species</small>
         </h1>
         <ol class="breadcrumb">
             <li><a href="dashboard.php"><i class="fa fa-dashboard"></i> Insects</a></li>
-            <li><a href="species_list.php">Species</a></li>
+            <li><a href="order_list.php">Order</a></li>
             <li class="active">Delete</li>
         </ol>
     </section>
@@ -82,7 +82,7 @@ if(isset($_POST['delete'])) {
 
                                 <div class='form-group'>
                                     <input type='submit' name='delete' class='btn btn-danger' value='DELETE'>
-                                    <a class="btn btn-info" href="species_list.php" title=""> CANCEL </a>
+                                    <a class="btn btn-info" href="order_list.php" title=""> CANCEL </a>
                                 </div>
                             </div>
                         </div>

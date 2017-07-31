@@ -1,124 +1,123 @@
-<?php require_once 'libs/database.php'; ?>
-<?php include 'includes/functions.php'; ?>
-<?php include 'includes/head.php'; ?>
 <?php
-      /* if not logged in */
-      if(!isset($_SESSION['userSession']) || $_SESSION['userSession'] = ""){
-          header('Location: login.php');
-          exit();
-      }
-
-      if(isset($_POST['submit'])) {
+    session_start();
+    
+    require_once '../libs/config.php';
+    require_once '../libs/database.php';
+    require_once 'includes/functions.php';
+    
+    $db = new database();              //instantiating database object
+    
+    /* inserting insect genus */
+    
+    if(isset($_POST['submit'])) {
+        
+        $genus = $_POST['insect_genus'];
+        $genus = ucfirst(strtolower($db->escape_string($genus)));
+        
+        $msg = '';
+        
+        if(empty($genus)){
+            $msg = 'Please insert genus field!';
+            //echo $msg;
+        }
+        else{
             
-            $_POST = array_map('stripslashes', $_POST);
+            $sql_select = "SELECT * FROM Genus WHERE genus_name = '{$genus}'";
+            $run_query = $db->select($sql_select);
             
-            /* getting post data */
-            extract($_POST);
-            /*echo $family;
-            echo "<pre>"; print_r($_POST); echo "</pre>"; die();*/
-            $genusErr = "";
-            $msg = "";
-            
-            if(empty($genus)) {
-                  $genusErr = "Please fill this field!";
+            if($run_query){
+                $msg = "{$genus} already exists";
             }else {
-                  $genusErr = validate_name($genus);
-            }
+                $message = '';
+                $sql_insert = "INSERT INTO Genus(genus_name) VALUES('{$genus}')";
+                $run_query = $db->insert($sql_insert);
+                
+                if($run_query) {
+                    $message = 'Genus successfully added';
+                    redirect_to('genus_list.php', $message);
+                }
+            }           
             
-            if(empty($genusErr)) {
-                  $genus = ucfirst(strtolower($db->escape_string($genus)));
-                  /* checking whether record already exists */
-                  $check_query = $db->select("SELECT genus_name FROM genus WHERE genus_name = '{$genus}'");
-                  if($check_query){
-                        $genusErr = "Record Already exists!";
-                  }else {
-                        $insert = "INSERT INTO genus(genus_name) "
-                                 ."VALUES('{$genus}')";
-                        $query = $db->insert($insert);
-                        
-                        if($query) {
-                              $msg ='<div class="alert alert-success">' . $genus . ' genus has been added</div>';
-                              $genus = $genusErr = '';
-                        }else {
-                              $msg  = '';
-                        }
-                  }
-            }
-            
-      }
+        }
+        
+    }
 
 ?>
 
-  <body>
-  <!-- container section start -->
-  <section id="container" class="">
-      <!--header start-->
-        <?php include 'includes/header.php'; ?>
-      <!--header end-->
 
-      <!--sidebar start-->
-        <?php include 'includes/sidebar_nav.php'; ?>
-      <!--sidebar end-->
+<!-- header -->
+<?php include 'includes/header.php'; ?>
 
-      <!--main content start-->
-      <section id="main-content">
-          <section class="wrapper">
-              <!-- page start-->
-                <div class="row">
-                <div class="col-lg-8">
-                    <!--breadcrumbs start -->
-                    <ul class="breadcrumb">
-                        <li><a href="dashboard.php"><i class="icon_house_alt"></i> Home</a></li>
-                        <li><a href="#">Genus</a></li>
-                        <li class="active">Add Genus</li>
-                        <li class="pull-right"><a href="genus_list.php">Genus List</a></li>
-                    </ul>
-                    <!--breadcrumbs end -->
-                </div>
+  <!-- =============================================== -->
+
+<!-- siderbar navigation -->
+
+<?php include 'includes/sidebar_nav.php'; ?> 
+
+  <!-- =============================================== -->
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+        Genus
+        <small>General kind of Insect species</small>
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Insects</a></li>
+        <li><a href="#">Genus</a></li>
+        <li class="active">Add</li>
+      </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        
+        <div class='row'>
+            <div class='col-md-12'>
+                
+                <fieldset>
+                    <legend>Add New Insect Genus</legend>
+                    
+                    <form action='' method='post' role='form'>
+                        
+                        <div class='box box-primary'>
+                            <div class='box-body'>
+                                
+                                <?php if(!empty($msg)): ?>
+                                    <div class='alert alert-warning'>
+                                        <?php echo $msg; ?>
+                                    </div>
+                                <?php endif; ?>                                
+                                
+                                <div class='form-group'>
+                                    <label class='control-label' for='insect_genus'>Insect Genus</label>
+                                    <input type='text' class='form-control' id='insect_genus' name='insect_genus' placeholder='Enter Insect Genus'>
+                                </div>
+                            
+                                <div class='form-group'>
+                                    <input type='submit' name='submit' class='btn btn-success' value='SAVE'>
+                                    <input type='reset' name='cancel' class='btn btn-danger' value='CANCEL'>
+                                </div>
+                            </div>      
+                        </div>
+                                          
+                        
+                    </form>
+                </fieldset>
+                
             </div>
-              <!-- page end-->
-              
-              <!-- form -->              
-                <div class="row">
-                  <div class="col-lg-8">
-                      <section class="panel">
-                          <header class="panel-heading">
-                              Add Genus
-                          </header>
-                          <div class="panel-body">
-                              <div class="form">
-                                    <p style="padding: 2px;"></p>                    
-                                    <?php echo isset($msg) && !empty($msg) ? $msg : ''; ?>
-                                  <form class="form-validate form-horizontal" id="feedback_form" method="post" action="" enctype="multipart/form-data" novalidate>
-                                      <div class="form-group has-feedback">
-                                          <label for="genus" class="control-label col-lg-2">Genus Name<span class="required">*</span></label>
-                                          <div class="col-lg-10">
-                                              <input class="form-control" id="genus" name="genus" minlength="5" type="text" value="<?php echo isset($genus) && !empty($genus) ? $genus : ''; ?>" />
-                                              <div class="help-block with-errors"><?php if(isset($genusErr) && !empty($genusErr)) echo $genusErr; ?></div>
-                                          </div>
-                                      </div>                               
-                                      
-                                      <div class="form-group">
-                                          <div class="col-lg-offset-2 col-lg-10">
-                                              <button class="btn btn-primary" type="submit" name="submit">Save</button>
-                                              <button class="btn btn-default" type="reset" name="cancel">Cancel</button>
-                                          </div>
-                                      </div>
-                                  </form>
-                              </div>
+        </div>        
 
-                          </div>
-                      </section>
-                  </div>
-              </div>             
-              <!-- end form-->
-            
-          </section>
-      </section>
-      <!--main content end-->
-  </section>
-  <!-- container section end -->
-    
-    <!-- footer start -->
-        <?php include 'includes/footer.php'; ?>
-    <!-- footer end -->
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+<!-- footer -->
+    <!-- =================================================================== -->
+
+<?php include 'includes/footer.php'; ?>
+
+  

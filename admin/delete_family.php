@@ -1,91 +1,106 @@
-<?php require_once 'libs/database.php'; ?>
-<?php include 'includes/functions.php'; ?>
-<?php include 'includes/head.php'; ?>
 <?php
+    session_start();
 
-/* if not logged in */
-if(!isset($_SESSION['userSession']) || $_SESSION['userSession'] = ""){
-    header('Location: login.php');
-    exit();
-}
+    require_once '../libs/config.php';
+    require_once '../libs/database.php';
+    require 'includes/functions.php';
 
-if(isset($_GET['id'])) {
-    $id = $_GET['id'];
-}
+    $db = new database();              //instantiating database object
 
-if(isset($_POST['delete'])) {
-
-    $delete_query = $db->delete("DELETE FROM family WHERE family_ID = {$id}");
-
-    if($delete_query) {
-        $message = "Family Record with ID = {$id} deleted from database";
-        redirect_to('family_list.php', $message);    //redirecting to insect list page
+    /* if not logged in */
+    if(!isset($_SESSION['userSession']) || $_SESSION['userSession'] = ""){
+        header('Location: login.php');
+        exit();
     }
-}
 
+    if(isset($_GET['id'])) {
+        $id = $_GET['id'];
+    }
+
+    if(isset($_POST['delete'])) {
+
+        $delete_query = $db->delete("DELETE FROM family WHERE family_Id = {$id}");
+
+        if($delete_query) {
+            $message = "Family Record with ID = {$id} deleted from database";
+            redirect_to('family_list.php', $message);    //redirecting to insect list page
+        }
+    }
 
 
 ?>
 
-<body>
-<!-- container section start -->
-<section id="container" class="">
-    <!--header start-->
-    <?php include 'includes/header.php'; ?>
-    <!--header end-->
 
-    <!--sidebar start-->
-    <?php include 'includes/sidebar_nav.php'; ?>
-    <!--sidebar end-->
+<!-- header -->
+<?php include 'includes/header.php'; ?>
 
-    <!--main content start-->
-    <section id="main-content">
-        <section class="wrapper">
-            <!-- page start-->
-            <div class="row">
-                <div class="col-lg-12">
-                    <!--breadcrumbs start -->
-                    <ul class="breadcrumb">
-                        <li><a href="dashboard.php"><i class="icon_house_alt"></i> Home</a></li>
-                        <li><a href="#">Family</a></li>
-                        <li class="active">Delete Family Record</li>
-                        <li class="pull-right"><a href="Family_list.php">Family List</a></li>
-                    </ul>
-                    <!--breadcrumbs end -->
-                </div>
-            </div>
+<!-- =============================================== -->
 
-            <div class="row">
-                <div class="col-lg-12">
-                    <section class="panel panel-danger">
-                        <div class="panel-heading">
-                            Confirm Delete
-                        </div>
+<!-- siderbar navigation -->
 
-                        <div class="panel-body">
-                            <div class="alert alert-danger">
-                                Are you sure you want to delete record?
-                            </div>
+<?php include 'includes/sidebar_nav.php'; ?>
 
-                            <form class="form-horizontal" action="" method="post" enctype="multipart/form-data">
-                                <div class="form-group">
-                                    <div class="col-lg-12">
-                                        <button class="btn btn-danger" type="submit" name="delete"><span class="icon-trash"></span> DELETE</button>
-                                        <a class="btn btn-default" href="plant_list.php" title=""><span class="icon_target"></span> CANCEL</a></td>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </section>
-                </div>
-            </div>
-            <!-- page end-->
-        </section>
+<!-- =============================================== -->
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            Family
+            <small>Collection of insect species</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="dashboard.php"><i class="fa fa-dashboard"></i> Insects</a></li>
+            <li><a href="family_list.php">Family</a></li>
+            <li class="active">Delete</li>
+        </ol>
     </section>
-    <!--main content end-->
-</section>
-<!-- container section end -->
 
-<!-- footer start -->
+    <!-- Main content -->
+    <section class="content">
+
+        <div class='row'>
+            <div class='col-md-12'>
+
+                <?php echo isset($msg) && !empty($msg) ? $msg : ''; ?>
+
+                <fieldset>
+                    <legend>Insect Family</legend>
+
+                    <form action='' method='post' role='form'>
+
+                        <div class='box box-danger'>
+                            <div class="box-header">
+                                Confirm Delete
+                            </div>
+                            <div class='box-body'>
+
+                                <div class="alert alert-danger">
+                                    Are you sure you want to delete record?
+                                </div>
+
+                                <div class='form-group'>
+                                    <input type='submit' name='delete' class='btn btn-danger' value='DELETE'>
+                                    <a class="btn btn-info" href="family_list.php" title=""> CANCEL </a>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </form>
+                </fieldset>
+
+            </div>
+        </div>
+
+    </section>
+    <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+
+<!-- footer -->
+<!-- =================================================================== -->
+
 <?php include 'includes/footer.php'; ?>
-<!-- footer end -->
+
