@@ -1,42 +1,29 @@
-<!-- header -->
-<?php include 'includes/header.php'; ?>
+<?php require_once 'libs/database.php'; ?>
+<?php include 'includes/head.php'; ?>
 
-  <!-- =============================================== -->
+  <body>
+  <!-- container section start -->
+  <section id="container" class="">
+      <!--header start-->
+        <?php include 'includes/header.php'; ?>
+      <!--header end-->
 
-<!-- siderbar navigation -->
+      <!--sidebar start-->
+        <?php include 'includes/sidebar_nav.php'; ?>
+      <!--sidebar end-->
 
-<?php include 'includes/sidebar_nav.php'; ?> 
-
-  <!-- =============================================== -->
-
-  <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    <section class="content-header">
-      <h1>
-        Blank page
-        <small>it all starts here</small>
-      </h1>
-      <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#">Examples</a></li>
-        <li class="active">Blank page</li>
-      </ol>
-    </section>
-
-    <!-- Main content -->
-    <section class="content">
-
-        <h2>Content</h2>
-
-    </section>
-    <!-- /.content -->
-  </div>
-  <!-- /.content-wrapper -->
-
-<!-- footer -->
-    <!-- =================================================================== -->
-
-<?php include 'includes/footer.php'; ?>
-
-  
+      <!--main content start-->
+      <section id="main-content">
+          <section class="wrapper">
+              <!-- page start-->
+              Page content goes here
+              <!-- page end-->
+          </section>
+      </section>
+      <!--main content end-->
+  </section>
+  <!-- container section end -->
+    
+    <!-- footer start -->
+        <?php include 'includes/footer.php'; ?>
+    <!-- footer end -->
