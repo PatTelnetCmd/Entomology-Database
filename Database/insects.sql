@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 30, 2017 at 01:43 PM
+-- Generation Time: Jul 31, 2017 at 10:39 AM
 -- Server version: 10.1.21-MariaDB
 -- PHP Version: 7.0.15
 
@@ -36,17 +36,16 @@ CREATE TABLE `family` (
 --
 
 INSERT INTO `family` (`family_Id`, `family_name`) VALUES
-(1, 'elasteridae'),
+(1, 'Elasteridae'),
 (2, 'Histeridae'),
 (3, 'Curculiodae'),
-(4, 'colydiidea'),
-(5, 'bothrideridae'),
-(6, 'cerambycidae'),
-(7, 'saturniidae'),
-(8, 'eupterotidae'),
-(9, 'notodontidae'),
-(10, 'noctuidae'),
-(11, 'lycaenidae');
+(4, 'Colydiidea'),
+(5, 'Bothrideridae'),
+(6, 'Cerambycidae'),
+(7, 'Saturniidae'),
+(8, 'Eupterotidae'),
+(9, 'Notodontidae'),
+(10, 'Noctuidae');
 
 -- --------------------------------------------------------
 
@@ -64,18 +63,17 @@ CREATE TABLE `genus` (
 --
 
 INSERT INTO `genus` (`genus_id`, `genus_name`) VALUES
-(1, 'melanotus'),
-(2, 'neotrichophorus'),
-(3, 'odontanychus'),
-(4, 'olopheus'),
-(5, 'pantolamprus'),
-(6, 'propsephus'),
-(7, 'tetralobus'),
-(8, 'chropoecilus'),
-(9, 'synchita'),
-(10, 'sprecodes'),
-(11, 'nudaurelia'),
-(12, 'ANISOMEROUS');
+(1, 'Melanotus'),
+(2, 'Neotrichophorus'),
+(3, 'Odontanychus'),
+(4, 'Olopheus'),
+(5, 'Pantolamprus'),
+(6, 'Propsephus'),
+(7, 'Tetralobus'),
+(8, 'Chropoecilus'),
+(9, 'Synchita'),
+(10, 'Sprecodes'),
+(11, 'Nudaurelia');
 
 -- --------------------------------------------------------
 
@@ -135,9 +133,9 @@ CREATE TABLE `order` (
 --
 
 INSERT INTO `order` (`order_Id`, `order_name`) VALUES
-(1, 'coleoptera'),
-(2, 'lepidoptera'),
-(3, 'diptera'),
+(1, 'Coleoptera'),
+(2, 'Lepidoptera'),
+(3, 'Diptera'),
 (4, 'Hemiptera'),
 (5, 'Hymenoptera');
 
@@ -176,11 +174,11 @@ CREATE TABLE `species` (
 --
 
 INSERT INTO `species` (`species_Id`, `species_name`) VALUES
-(1, 'umbilcatus'),
-(2, 'fossiceos'),
-(3, 'canaliculatus'),
-(4, 'terminatus'),
-(5, 'bruneiventris');
+(1, 'Umbilcatus'),
+(2, 'Fossiceos'),
+(3, 'Canaliculatus'),
+(4, 'Terminatus'),
+(5, 'Bruneiventris');
 
 -- --------------------------------------------------------
 
