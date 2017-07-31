@@ -115,13 +115,6 @@
                                 <?php while($insect = $insect_list->fetch_array()): ?>
                                     <tr>
                                         <td><?php echo $counter; ?></td>
-                                        <!--<td><?php //echo $insect['CB']; ?></td>
-                                        <td><?php //echo $insect['STB']; ?></td>
-                                        <td><?php //echo $insect['order_Id']; ?></td>
-                                        <td><?php //echo $insect['family_Id']; ?></td>
-                                        <td><?php //echo $insect['genus_Id']; ?></td>
-                                        <td><?php //echo $insect['species_Id']; ?></td>
-                                        <td><?php //echo $insect['auth']; ?></td>-->
                                         <td><?php echo $insect['AC_NO']; ?></td>
                                         <td><?php echo $insect['country']; ?></td>
                                         <td><?php echo $insect['location']; ?></td>
@@ -133,14 +126,15 @@
                                         <td><?php echo $insect['Name']; ?></td>
                                         <td><?php echo $insect['collector']; ?></td>
                                         <td><?php echo $insect['doc']; ?></td>
-                                        
-                                        <!--<td><?php //echo $insect['Others']; ?></td>-->
+
                                         <td>
                                             <center>
                                                 <a href="insect_detail.php?id=<?php echo $insect['insect_Id']; ?>" title="View Details" data-remote="false" data-toggle="modal" data-target="#insectModal"><i class="fa fa-comment fa-fw"></i></a>
-                                                <a href="edit_insect.php?id=<?php echo $insect['insect_Id']; ?>" title="Edit Record"><i class="fa fa-edit fa-fw"></i></a>
-                                                <a class="delete_insect" data-id="<?php echo $insect['insect_Id']; ?>" href="JavaScript:void(0)" title="Delete"><i class="fa fa-trash fa-fw"></i></a>
-                                            </center>                                            
+                                                <?php if($_SESSION['role'] == 1): ?>
+                                                    <a href="edit_insect.php?id=<?php echo $insect['insect_Id']; ?>" title="Edit Record"><i class="fa fa-edit fa-fw"></i></a>
+                                                    <a class="delete_insect" data-id="<?php echo $insect['insect_Id']; ?>" href="JavaScript:void(0)" title="Delete"><i class="fa fa-trash fa-fw"></i></a>
+                                                <?php endif; ?>
+                                        </center>
                                         </td>
                                     </tr>
 									
