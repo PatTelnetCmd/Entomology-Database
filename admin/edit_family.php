@@ -97,8 +97,8 @@
                             <div class='box-body'>
 
                                 <div class='form-group'>
-                                    <label class='control-label' for='insect_family'>Insect Family</label>
-                                    <input type='text' class='form-control' id='insect_family' name='family' value="<?php echo $family_record->family_name; ?>">
+                                    <label class='control-label' for='family'>Insect Family</label>
+                                    <input type='text' class='form-control' id='family' name='family' value="<?php echo $family_record->family_name; ?>">
                                     <div class="help-block with-errors"><?php if(isset($familyErr) && !empty($familyErr)) echo $familyErr; ?></div>
                                 </div>
 

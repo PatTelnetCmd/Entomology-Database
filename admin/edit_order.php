@@ -17,7 +17,7 @@
         $id = $_GET['id'];
     }
 
-    $genus_record = $db->select_one("SELECT genus_name FROM genus WHERE genus_id = {$id} LIMIT 1");
+    $order_record = $db->select_one("SELECT order_name FROM order WHERE order_Id = {$id} LIMIT 1");
 
     if(isset($_POST['update'])) {
 
@@ -25,23 +25,23 @@
 
         /* getting post data */
         extract($_POST);
-        $genusErr = "";
+        $orderErr = "";
         $msg = "";
 
-        if(empty($genus)) {
-            $genusErr = "Please fill this field!";
+        if(empty($order)) {
+            $orderErr = "Please fill this field!";
         }else {
-            $genusErr = validate_name($genus);
+            $orderErr = validate_name($order);
         }
 
-        if(empty($genusErr)) {
-            $genus = ucfirst(strtolower($db->escape_string($genus)));
-            $update = "UPDATE genus SET genus_name = '{$genus}' WHERE genus_id = $id";
+        if(empty($orderErr)) {
+            $order = ucfirst(strtolower($db->escape_string($order)));
+            $update = "UPDATE order SET order_name = '{$order}' WHERE order_Id = $id";
             $query = $db->update($update);
 
             if($query) {
-                $msg ='<div class="alert alert-success">' . $genus . ' genus has been updated</div>';
-                $genus = $genusErr = '';
+                $msg ='<div class="alert alert-success">' . $order . ' order has been updated</div>';
+                $order = $orderErr = '';
             }else {
                 $msg  = '';
             }
@@ -68,12 +68,12 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
-            Genus
-            <small>General kind of Insect species</small>
+            Order
+            <small>Describe order of species</small>
         </h1>
         <ol class="breadcrumb">
             <li><a href="dashboard.php"><i class="fa fa-dashboard"></i> Insects</a></li>
-            <li><a href="genus_list.php">Genus</a></li>
+            <li><a href="order_list.php">Order</a></li>
             <li class="active">Edit</li>
         </ol>
     </section>
@@ -87,7 +87,7 @@
                 <?php echo isset($msg) && !empty($msg) ? $msg : ''; ?>
 
                 <fieldset>
-                    <legend>Edit Insect Genus</legend>
+                    <legend>Edit Insect Order</legend>
 
                     <form action='' method='post' role='form'>
 
@@ -95,9 +95,9 @@
                             <div class='box-body'>
 
                                 <div class='form-group'>
-                                    <label class='control-label' for='genus'>Insect Genus</label>
-                                    <input type='text' class='form-control' id='genus' name='genus' value="<?php echo $genus_record->genus_name; ?>">
-                                    <div class="help-block with-errors"><?php if(isset($genusErr) && !empty($genusErr)) echo $genusErr; ?></div>
+                                    <label class='control-label' for='order'>Insect Order</label>
+                                    <input type='text' class='form-control' id='order' name='order' value="<?php echo $order_record->order_name; ?>">
+                                    <div class="help-block with-errors"><?php if(isset($orderErr) && !empty($orderErr)) echo $orderErr; ?></div>
                                 </div>
 
                                 <div class='form-group'>
