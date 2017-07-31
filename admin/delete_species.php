@@ -66,7 +66,7 @@ if(isset($_POST['delete'])) {
                 <?php echo isset($msg) && !empty($msg) ? $msg : ''; ?>
 
                 <fieldset>
-                    <legend>Insect Genus</legend>
+                    <legend>Insect Species</legend>
 
                     <form action='' method='post' role='form'>
 

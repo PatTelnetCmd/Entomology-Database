@@ -17,7 +17,7 @@
         $id = $_GET['id'];
     }
 
-    $order_record = $db->select_one("SELECT order_name FROM order WHERE order_Id = {$id} LIMIT 1");
+    $order_record = $db->select_one("SELECT order_name FROM `order` WHERE order_Id = {$id} LIMIT 1");
 
     if(isset($_POST['update'])) {
 
@@ -36,7 +36,7 @@
 
         if(empty($orderErr)) {
             $order = ucfirst(strtolower($db->escape_string($order)));
-            $update = "UPDATE order SET order_name = '{$order}' WHERE order_Id = $id";
+            $update = "UPDATE `order` SET order_name = '{$order}' WHERE order_Id = $id";
             $query = $db->update($update);
 
             if($query) {

@@ -81,8 +81,8 @@
                                         <td><?php echo $row['species_name']; ?></td>
                                         <td>
                                             <center>
-                                                <a href="#" class="btn btn-info btn-xs"><i class="fa fa-edit fa-fw"></i></a>
-                                                <a href="#" class="btn btn-danger btn-xs"><i class="fa fa-trash fa-fw"></i></a>
+                                                <a title="Edit" href="edit_species.php?id=<?php echo $row['species_Id']; ?>" class="btn btn-info btn-xs"><i class="fa fa-edit fa-fw"></i></a>
+                                                <a title="Delete" href="delete_species.php?id=<?php echo $row['species_Id']; ?>" class="btn btn-danger btn-xs"><i class="fa fa-trash fa-fw"></i></a>
                                             </center>                                            
                                         </td>
                                     </tr>
