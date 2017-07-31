@@ -1,5 +1,5 @@
 <?php
 
-    header('Location: template.php');
+    header('Location: dashboard.php');
 
 ?>
