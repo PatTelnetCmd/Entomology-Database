@@ -1,6 +1,11 @@
-<?php require_once 'libs/database.php'; ?>
-<?php include 'includes/functions.php'; ?>
 <?php
+    session_start();
+    
+    require_once '../libs/config.php';
+    require_once '../libs/database.php';
+    require 'includes/functions.php';
+    
+    $db = new database();
 
     if(isset($_SESSION['userSession']) != ""){
         header('Location: dashboard.php');
@@ -8,138 +13,123 @@
     }
 
     if(isset($_POST['login'])){
-        $_POST = array_map('stripslashes', $_POST);
-            
-        /* getting post data */
-        extract($_POST);
-        //*echo $family;
-        //echo "<pre>"; print_r($_POST); echo "</pre>"; die();
-                
-        $user_password = $db->escape_string($password);
-        //echo $user_password;
-        
-        if(!empty($user_password) && !empty($username)) {
-            //verifying username and password
-            $verify_query = $db->select_one("SELECT * FROM user WHERE username = '$username'");
-            //$row = $verify_query;
-            //echo "<pre>"; print_r($verify_query); echo "</pre>"; die();
-            
-            if($verify_query) {
-                $verify_pass = password_verify($user_password, $verify_query->password);
-    
-                if($verify_pass){
-                    $_SESSION['userSession'] = $verify_query->user_ID;
-                    $_SESSION['fullname']    = $verify_query->full_name;
-                    $_SESSION['role']        = $verify_query->role;
-                    $_SESSION['logged']      = 1;
-                    header('Location: dashboard.php');
-                }else{
-                    $msg = "<div class='alert alert-danger'>
-                              <span class='glyphicon glyphicon-info-sign'></span> &nbsp; Wrong username or password !
-                             </div>";
-                }
-            }else {
-                $msg = "<div class='alert alert-danger'>
-                              <span class='glyphicon glyphicon-info-sign'></span> &nbsp; Wrong username or password combination !
-                             </div>";
-            }    
-            
-        }else {
+        $user          = trim($_POST['username']);
+        $user_password = trim($_POST['password']);
+
+        //verifying username and password
+        $verify_query = $db->select("SELECT * FROM users WHERE username = '$user'");
+        $row = $verify_query->fetch_array();
+
+        $verify_pass = password_verify($user_password, $row['password']);
+
+        if($verify_pass){
+            $_SESSION['userSession'] = $row['user_ID'];
+            $_SESSION['fullname']    = $row['full_name'];
+            header('Location: dashboard.php');
+        }else{
             $msg = "<div class='alert alert-danger'>
-                          <span class='glyphicon glyphicon-info-sign'></span> &nbsp; Please provide both your username and password !
-                         </div>";
+                      <span class='glyphicon glyphicon-info-sign'></span> &nbsp; Wrong username or password !
+                     </div>";
         }
-        
-    }    
+    }
 
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
-
-
+<html>
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Byadmin - Bootstrap 3 Responsive Admin Template">
-    <meta name="author" content="Bylancer">
-    <meta name="keyword" content="Byadmin, Dashboard, Herbarium Database Record, Bootstrap, Responsive, Retina, Minimal">
-    <link rel="shortcut icon" href="assets/img/favicon.png">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Log in</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <!-- Bootstrap 3.3.6 -->
+  <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.min.css">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="../assets/font-awesome/css/font-awesome.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="../assets/dist/css/AdminLTE.min.css">
+  <!-- iCheck -->
+  <link rel="stylesheet" href="../assets/plugins/iCheck/square/blue.css">
 
-    <title>Login Page</title>
-
-    <!-- Bootstrap CSS -->
-    <link href="assets/css/bootstrap.min.css" rel="stylesheet">
-    <!-- bootstrap theme -->
-    <link href="assets/css/bootstrap-theme.css" rel="stylesheet">
-    <!--external css-->
-    <!-- font icon -->
-    <link href="assets/css/elegant-icons-style.css" rel="stylesheet" />
-    <link href="assets/plugins/font-awesome/css/font-awesome.css" rel="stylesheet" />
-    <!-- Custom styles -->
-    <link href="assets/css/style.css" rel="stylesheet">
-    <link href="assets/css/style-responsive.css" rel="stylesheet" />
-    <link href="assets/css/animate.min.css" rel="stylesheet">
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 -->
-    <!--[if lt IE 9]>
-    <script src="js/html5shiv.js"></script>
-    <script src="js/respond.min.js"></script>
-    <![endif]-->
-
-    <style>
-        .login-body{
-            background: url('images/weather/weather/weather.png') no-repeat center center fixed;
-            -webkit-background-size: cover;
-            -moz-background-size: cover;
-            -o-background-size: cover;
-            background-size: cover;
-        }
-    </style>
-
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+  <![endif]-->
 </head>
+<body class="hold-transition login-page">
+<div class="login-box">
+  <div class="login-logo">
+    <div><img src="../assets/logos/naro.png" class="image-responsive pull-left" /></div>
+    <div><img src="../assets/logos/naroforest.png" class="image-responsive pull-right" /></div>
+    <div class="clearfix"></div>
+    <div><h5 style="padding: 0px;">NATIONAL FORESTRY RESOURCES RESEARCH INSTITUTE</h5></div>
+    <div><h6 style="padding: 0px;">ENTOMOLOGY DATABASE</h6></div>
+    <a href="#"><small>User Login</small> | <small>NARO ED</small></a>
+  </div>
+  <!-- /.login-logo -->
+  <div class="login-box-body">
+    <p class="login-box-msg">Log in to start your session</p>
+    <hr />
+    <?php
+        if(isset($msg)){
+            echo $msg;
+        }
+    ?>
 
-  <body class="login-body">
-
-    <div class="container animated fadeInLeft">
-
-      <form class="login-form" action="" method="post">        
-        <div class="login-wrap">
-            <div class="row">
-                <div class="pull-right"><img src="assets/logos/naroforest.png" alt="naro" /></div>
-                <div class="pull-left"><img src="assets/logos/naro.png" alt="naro" /></div>
-                <p class="login-img"><i class="icon_lock_alt"></i></p> 
-            </div>                       
-            
-            <div class="row">
-                <div class="col-md-12"><p style="padding: 5px;"></p></div>                
-            </div>
-            <?php
-                if(isset($msg)){
-                    echo $msg;
-                }
-            ?>
-            <p id="login_her">HERBARIUM DATABASE RECORDS</p>
-            <div class="input-group">
-              <span class="input-group-addon"><i class="icon_profile"></i></span>
-              <input type="text" class="form-control" placeholder="Username" name="username" autocomplete="off" autofocus>
-            </div>
-            <div class="input-group">
-                <span class="input-group-addon"><i class="icon_key_alt"></i></span>
-                <input type="password" class="form-control" placeholder="Password" name="password">
-            </div>
-            <label class="checkbox">
-                <!--<input type="checkbox" value="remember-me"> Remember me-->
-                <span class="pull-right"> <a href="password_update.php"> Forgot Password?</a></span>
+    <form action="" method="post">
+      <div class="form-group has-feedback">
+        <input type="text" class="form-control" placeholder="Username" name="username" autocomplete="off">
+        <span class="glyphicon glyphicon-user form-control-feedback"></span>
+      </div>
+      <div class="form-group has-feedback">
+        <input type="password" class="form-control" placeholder="Password" name="password">
+        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+      </div>
+      <div class="row">
+        <div class="col-xs-8">
+          <!--<div class="checkbox icheck">
+            <label>
+              <input type="checkbox"> Remember Me
             </label>
-            <button class="btn btn-primary btn-lg btn-block" type="submit" name="login">Login</button>
-            <!--<button class="btn btn-info btn-lg btn-block" type="submit">Signup</button>-->
-            <!--<a href="register.php"><i class="icon-signin"></i>New to Herbarium Database? Register.</a>-->
+          </div>-->
         </div>
-      </form>
+        <!-- /.col -->
+        <div class="col-xs-4">
+          <button type="submit" name="login" class="btn btn-primary btn-block btn-flat">LogIn</button>
+        </div>
+        <!-- /.col -->
+      </div>
+    </form>
 
-    </div>
+    
 
+    <!--<a href="#">I forgot my password</a>--><br>
+    <!--<a href="register.php" class="text-center">Register a new membership</a>-->
 
-  </body>
+  </div>
+  <!-- /.login-box-body -->
+</div>
+<!-- /.login-box -->
 
+<!-- jQuery 2.2.3 -->
+<script src="../assets/plugins/jQuery/jquery-2.2.3.min.js"></script>
+<!-- Bootstrap 3.3.6 -->
+<script src="../assets/bootstrap/js/bootstrap.min.js"></script>
+<!-- iCheck -->
+<script src="../assets/plugins/iCheck/icheck.min.js"></script>
+<script>
+  $(function () {
+    $('input').iCheck({
+      checkboxClass: 'icheckbox_square-blue',
+      radioClass: 'iradio_square-blue',
+      increaseArea: '20%' // optional
+    });
+  });
+</script>
+</body>
 </html>
