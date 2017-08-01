@@ -62,7 +62,6 @@
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <!--<img src="../assets/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">-->
               <i class="fa fa-user fa-fw"></i>
               <?php if(isset($_SESSION['userSession'])): ?>
                 <span class="hidden-xs"><?php if(isset($_SESSION['fullname'])): echo $_SESSION['fullname']; endif ?></span>
@@ -71,38 +70,27 @@
             <ul class="dropdown-menu">
               <!-- User image -->
               <li class="user-header">
-                <!--<img src="../assets/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">-->
                 <i class="fa fa-user fa-3x"></i>
                 <p>
                   <?php
                       if(isset($_SESSION['userSession'])):
-                        echo $_SESSION['fullname']. "-Admin";
+                        echo $_SESSION['fullname'];
+                        if($_SESSION['role'] == 1) {
+                            echo "-Admin";
+                        }else{
+                            echo "-User";
+                        }
                       endif;
                   ?>
-                  <!--Jeff Rickson - Admin
-                  <small>Member since Nov. 2012</small>-->
                 </p>
-              </li>
-              <!-- Menu Body -->
-              <li class="user-body">
-                <!--<div class="row">
-                  <div class="col-xs-4 text-center">
-                    <a href="#">Followers</a>
-                  </div>
-                  <div class="col-xs-4 text-center">
-                    <a href="#">Sales</a>
-                  </div>
-                  <div class="col-xs-4 text-center">
-                    <a href="#">Friends</a>
-                  </div>
-                </div>-->
-                <!-- /.row -->
               </li>
               <!-- Menu Footer-->
               <li class="user-footer">
-                <div class="pull-left">
-                  <a href="register.php" class="btn btn-default btn-flat">Register User</a>
-                </div>
+                  <?php if($_SESSION['role'] == 1): ?>
+                    <div class="pull-left">
+                      <a href="register.php" class="btn btn-default btn-flat">Register User</a>
+                    </div>
+                  <?php endif; ?>
                 <div class="pull-right">
                   <a href="logout.php" class="btn btn-default btn-flat">Sign out</a>
                 </div>
