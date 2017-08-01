@@ -85,13 +85,6 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <!--<th>CB</th>
-                                    <th>STB</th>
-                                    <th>Order</th>
-                                    <th>Family</th>
-                                    <th>Genus</th>
-                                    <th>Species</th>
-                                    <th>Auth</th>-->
                                     <th>AC_NO</th>
                                     <th>Country</th>
                                     <th>Location</th>
@@ -101,11 +94,9 @@
                                     <th>Genus</th>
                                     <th>Species</th>
                                     <th>Name</th>
-                                    <th>Collector</th>
+                                    <!--<th>Collector</th>-->
                                     <th>D.O.C</th>
-                                    
-                                    <!--<th>Others</th>-->
-                                    <th></th>
+                                    <th>Actions</th>
                                 </tr>                      
                                 
                             </thead>
@@ -124,7 +115,7 @@
                                         <td><?php echo $insect['genus_name']; ?></td>
                                         <td><?php echo $insect['species_name']; ?></td>
                                         <td><?php echo $insect['Name']; ?></td>
-                                        <td><?php echo $insect['collector']; ?></td>
+                                        <!--<td><?php //echo $insect['collector']; ?></td>-->
                                         <td><?php echo $insect['doc']; ?></td>
 
                                         <td>

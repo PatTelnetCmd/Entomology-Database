@@ -11,8 +11,8 @@
     
     $db = new database();
     
-    $usernameErr = $fullnameErr = $emailErr = $passErr = $roleErr = "";
-    $username = $fullname = $email = $password = $role = "";
+    $usernameErr = $fullnameErr = $emailErr = $passErr = $roleErr = $questionErr = $answerErr = "";
+    $username = $fullname = $email = $password = $role = $question = $answer =  "";
     
     if(isset($_POST['register'])){        
         //$user_code = $db->real_escape_string(trim($_POST['user_id']));
@@ -56,18 +56,30 @@
             $roleErr = "*Role not selected";
         }else {
             $role  = test_input($_POST['role']);
-        }        
+        }
+
+        if(empty($_POST['question'])) {
+            $questionErr = '*Select question please';
+        }else {
+            $question = test_input($_POST['question']);
+        }
+
+        if(empty($_POST['answer'])) {
+            $answerErr = '*Fill in answer for the question';
+        }else {
+            $answer = test_input($_POST['answer']);
+        }
         
         //var_dump($_POST);
         
         //checking if input boxes are empty
-        if(empty($_POST['username']) || empty($_POST['full_name']) || empty($_POST['email']) || empty($_POST['password']) || empty($_POST['role'])) {
+        if(empty($_POST['username']) || empty($_POST['full_name']) || empty($_POST['email']) || empty($_POST['password']) || empty($_POST['role']) || empty($_POST['question']) || empty($_POST['answer'])) {
             $msg = "<div class='alert alert-danger'>
                           <span class='glyphicon glyphicon-info-sign'></span> &nbsp; All fields must be filled!
                          </div>";
         }else {
             
-            if(empty($usernameErr) && empty($fullnameErr) && empty($emailErr) && empty($passErr) && empty($roleErr)) {
+            if(empty($usernameErr) && empty($fullnameErr) && empty($emailErr) && empty($passErr) && empty($roleErr) && empty($questionErr) && empty($answerErr)) {
                 
                 $count = 0;                
         
@@ -83,8 +95,8 @@
         
                 if($count == 0){
                     //registering users into the database
-                    $insert_query = "INSERT INTO users(username, full_name, email,password, role)
-                      VALUES('$username', '$fullname', '$email', '$hash_passwd', $role)";
+                    $insert_query = "INSERT INTO users(username, full_name, email,password, role, question, answer)
+                      VALUES('$username', '$fullname', '$email', '$hash_passwd', $role, '$question', '$answer')";
         
                     $query = $db->insert($insert_query);
         
@@ -92,7 +104,7 @@
                         $msg = "<div class='alert alert-success'>
                                   <span class='glyphicon glyphicon-info-sign'></span> &nbsp; Successfully registered !
                                  </div>";
-                        $username = $fullname = $email = $password = $role = "";
+                        $username = $fullname = $email = $password = $role = $question = $answer = "";
         
                     }else{
                         $msg = "<div class='alert alert-danger'>
@@ -213,10 +225,18 @@
           </select>
           <div class="help-block with-errors"><?php echo $roleErr; ?></div>
       </div>
-      <!--<div class="form-group has-feedback">
-        <input type="password" class="form-control" placeholder="Retype password">
-        <span class="glyphicon glyphicon-log-in form-control-feedback"></span>
-      </div>-->
+      <div class="form-group has-feedback">
+         <select class="form-control" name="question" id="question">
+             <!--------Getting option list from json object---------->
+         </select>
+        <div class="help-block with-errors"><?php echo $questionErr; ?></div>
+      </div>
+      <div class="form-group has-feedback">
+        <input type="text" class="form-control" name="answer" placeholder="Answer to your security question">
+        <span class="glyphicon glyphicon-question-sign form-control-feedback"></span>
+        <div class="help-block with-errors"><?php echo $answerErr; ?></div>
+      </div>
+
       <div class="row">
         <div class="col-xs-8">
           <!--<div class="checkbox icheck">
@@ -233,15 +253,6 @@
       </div>
     </form>
 
-    <!--<div class="social-auth-links text-center">
-      <p>- OR -</p>
-      <a href="#" class="btn btn-block btn-social btn-facebook btn-flat"><i class="fa fa-facebook"></i> Sign up using
-        Facebook</a>
-      <a href="#" class="btn btn-block btn-social btn-google btn-flat"><i class="fa fa-google-plus"></i> Sign up using
-        Google+</a>
-    </div>-->
-
-    <!--<a href="login.php" class="text-center">I already have a membership</a>-->
   </div>
   <!-- /.form-box -->
 </div>
@@ -253,6 +264,7 @@
 <script src="../assets/bootstrap/js/bootstrap.min.js"></script>
 <!-- iCheck -->
 <script src="../assets/plugins/iCheck/icheck.min.js"></script>
+<script src="../assets/js/questions.js"></script>
 <script>
   $(function () {
     $('input').iCheck({
