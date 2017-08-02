@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.6.5.2
--- https://www.phpmyadmin.net/
+-- version 4.5.4.1deb2ubuntu2
+-- http://www.phpmyadmin.net
 --
--- Host: 127.0.0.1
--- Generation Time: Aug 02, 2017 at 02:41 PM
--- Server version: 10.1.21-MariaDB
--- PHP Version: 7.0.15
+-- Host: localhost
+-- Generation Time: Nov 13, 2016 at 02:03 PM
+-- Server version: 5.7.16-0ubuntu0.16.04.1
+-- PHP Version: 7.0.8-0ubuntu0.16.04.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -23,65 +23,67 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `family`
+-- Table structure for table `Family`
 --
 
-CREATE TABLE `family` (
+CREATE TABLE `Family` (
   `family_Id` int(11) NOT NULL,
   `family_name` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `family`
+-- Dumping data for table `Family`
 --
 
-INSERT INTO `family` (`family_Id`, `family_name`) VALUES
-(1, 'Elasteridae'),
+INSERT INTO `Family` (`family_Id`, `family_name`) VALUES
+(1, 'elasteridae'),
 (2, 'Histeridae'),
 (3, 'Curculiodae'),
-(4, 'Colydiidea'),
-(5, 'Bothrideridae'),
-(6, 'Cerambycidae'),
-(7, 'Saturniidae'),
-(8, 'Eupterotidae'),
-(9, 'Notodontidae'),
-(10, 'Noctuidae');
+(4, 'colydiidea'),
+(5, 'bothrideridae'),
+(6, 'cerambycidae'),
+(7, 'saturniidae'),
+(8, 'eupterotidae'),
+(9, 'notodontidae'),
+(10, 'noctuidae'),
+(11, 'lycaenidae');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `genus`
+-- Table structure for table `Genus`
 --
 
-CREATE TABLE `genus` (
+CREATE TABLE `Genus` (
   `genus_id` int(11) NOT NULL,
   `genus_name` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `genus`
+-- Dumping data for table `Genus`
 --
 
-INSERT INTO `genus` (`genus_id`, `genus_name`) VALUES
-(1, 'Melanotus'),
-(2, 'Neotrichophorus'),
-(3, 'Odontanychus'),
-(4, 'Olopheus'),
-(5, 'Pantolamprus'),
-(6, 'Propsephus'),
-(7, 'Tetralobus'),
-(8, 'Chropoecilus'),
-(9, 'Synchita'),
-(10, 'Sprecodes'),
-(11, 'Nudaurelia');
+INSERT INTO `Genus` (`genus_id`, `genus_name`) VALUES
+(1, 'melanotus'),
+(2, 'neotrichophorus'),
+(3, 'odontanychus'),
+(4, 'olopheus'),
+(5, 'pantolamprus'),
+(6, 'propsephus'),
+(7, 'tetralobus'),
+(8, 'chropoecilus'),
+(9, 'synchita'),
+(10, 'sprecodes'),
+(11, 'nudaurelia'),
+(12, 'ANISOMEROUS');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `insects`
+-- Table structure for table `Insects`
 --
 
-CREATE TABLE `insects` (
+CREATE TABLE `Insects` (
   `insect_Id` int(11) NOT NULL,
   `CB` int(11) NOT NULL,
   `STB` int(11) NOT NULL,
@@ -95,7 +97,7 @@ CREATE TABLE `insects` (
   `country` varchar(255) NOT NULL,
   `location` varchar(255) NOT NULL,
   `coordinates` varchar(255) NOT NULL,
-  `doc` tinytext NOT NULL,
+  `doc` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `collector` varchar(255) NOT NULL,
   `identifier` varchar(255) NOT NULL,
   `image` text NOT NULL,
@@ -104,38 +106,37 @@ CREATE TABLE `insects` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `insects`
+-- Dumping data for table `Insects`
 --
 
-INSERT INTO `insects` (`insect_Id`, `CB`, `STB`, `order_Id`, `family_Id`, `genus_Id`, `species_Id`, `sub_family`, `auth`, `AC_NO`, `country`, `location`, `coordinates`, `doc`, `collector`, `identifier`, `image`, `preserv`, `Others`) VALUES
-(1, 1, 1, 2, 3, 4, 3, 'Protea', 'burg', 'B4959', 'Uganda', 'Uganda', 'in flight', '02/03/2016', 'Ricks', 'C.M.F Van Hayek det1967', 'ABS_SELECT.png', 'pin', ''),
-(2, 1, 2, 2, 6, 4, 2, '', 'cand', 'B4978', 'Uganda', 'Uganda', 'in car', '03/01/2016', 'K.W.Browns', 'C.M.F Van Hayek det1964', 'insects3.jpg', 'pin', ''),
-(3, 2, 3, 2, 1, 1, 1, '', 'fleunt', 'B3456', 'Tanzania', 'Ddodoma', 'on shrub', '23/01/2017', 'K.W.Brown', 'C.M.F Van Hayek det1987', 'strings_mysql.png', 'pin', ''),
-(4, 2, 3, 3, 4, 5, 4, '', 'hope', 'B3446', 'Uganda', 'Nakawa', 'on shrub', '28/02/2017', 'K.W.Brown', 'C.M.F Van Hayek det1967', 'ant.jpg', 'pin', ''),
-(5, 3, 2, 5, 2, 3, 2, 'protrxin', 'fleunt', 'B3239', 'Tanzania', 'Ddodoma', 'on shrub', '08/11/2016', 'K.W.Brown', 'C.M.F Van Hayek det1967', 'sharp.jpg', 'pin', ''),
-(6, 2, 1, 1, 2, 2, 2, '', 'burg', 'B2345', 'Uganda', 'Uganda', 'in car', '03/12/2016', 'K.W.Brown', 'C.M.F Van Hayek det1969', 'hopper.jpg', 'pin', ''),
-(7, 1, 1, 4, 6, 7, 5, 'Protea', 'burg', 'B3232', 'Tanzania', 'Mombasa', 'on shrub', '14/06/2016', 'k.W.Kevin', 'C.M.F Van Hayek det1987', 'fly.jpg', 'pin', ''),
-(8, 2, 3, 2, 2, 2, 3, '', 'burg', 'CW-0838939', 'Uganda', 'Kawempe', '23078', '29/07/2017', 'Ken W James', 'KW Organ', '', '', '');
+INSERT INTO `Insects` (`insect_Id`, `CB`, `STB`, `order_Id`, `family_Id`, `genus_Id`, `species_Id`, `sub_family`, `auth`, `AC_NO`, `country`, `location`, `coordinates`, `doc`, `collector`, `identifier`, `image`, `preserv`, `Others`) VALUES
+(1, 1, 1, 2, 3, 4, 3, 'Protea', 'burg', 'B4959', 'Uganda', 'Uganda', 'in flight', '2016-10-23 18:21:07', 'Ricks', 'C.M.F Van Hayek det1967', 'ABS_SELECT.png', 'pin', ''),
+(2, 1, 2, 2, 6, 4, 2, '', 'cand', 'B4978', 'Uganda', 'Uganda', 'in car', '2016-10-23 13:53:28', 'K.W.Browns', 'C.M.F Van Hayek det1964', 'insects3.jpg', 'pin', ''),
+(3, 2, 3, 2, 1, 1, 1, '', 'fleunt', 'B3456', 'Tanzania', 'Ddodoma', 'on shrub', '2016-10-22 01:15:37', 'K.W.Brown', 'C.M.F Van Hayek det1987', 'strings_mysql.png', 'pin', ''),
+(4, 2, 3, 3, 4, 5, 4, '', 'hope', 'B3446', 'Uganda', 'Nakawa', 'on shrub', '2016-10-22 09:17:11', 'K.W.Brown', 'C.M.F Van Hayek det1967', 'ant.jpg', 'pin', ''),
+(5, 3, 2, 5, 2, 3, 2, 'protrxin', 'fleunt', 'B3239', 'Tanzania', 'Ddodoma', 'on shrub', '2016-10-22 10:49:58', 'K.W.Brown', 'C.M.F Van Hayek det1967', 'sharp.jpg', 'pin', ''),
+(6, 2, 1, 1, 2, 2, 2, '', 'burg', 'B2345', 'Uganda', 'Uganda', 'in car', '2016-10-23 13:51:05', 'K.W.Brown', 'C.M.F Van Hayek det1969', 'hopper.jpg', 'pin', ''),
+(7, 1, 1, 4, 6, 7, 5, 'Protea', 'burg', 'B3232', 'Tanzania', 'Mombasa', 'on shrub', '2016-10-23 13:57:13', 'k.W.Kevin', 'C.M.F Van Hayek det1987', 'fly.jpg', 'pin', '');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `order`
+-- Table structure for table `Order`
 --
 
-CREATE TABLE `order` (
+CREATE TABLE `Order` (
   `order_Id` int(11) NOT NULL,
   `order_name` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `order`
+-- Dumping data for table `Order`
 --
 
-INSERT INTO `order` (`order_Id`, `order_name`) VALUES
-(1, 'Coleoptera'),
-(2, 'Lepidoptera'),
-(3, 'Diptera'),
+INSERT INTO `Order` (`order_Id`, `order_name`) VALUES
+(1, 'coleoptera'),
+(2, 'lepidoptera'),
+(3, 'diptera'),
 (4, 'Hemiptera'),
 (5, 'Hymenoptera');
 
@@ -161,24 +162,24 @@ INSERT INTO `role` (`role_ID`, `role`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `species`
+-- Table structure for table `Species`
 --
 
-CREATE TABLE `species` (
+CREATE TABLE `Species` (
   `species_Id` int(11) NOT NULL,
   `species_name` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `species`
+-- Dumping data for table `Species`
 --
 
-INSERT INTO `species` (`species_Id`, `species_name`) VALUES
-(1, 'Umbilcatus'),
-(2, 'Fossiceos'),
-(3, 'Canaliculatus'),
-(4, 'Terminatus'),
-(5, 'Bruneiventris');
+INSERT INTO `Species` (`species_Id`, `species_name`) VALUES
+(1, 'umbilcatus'),
+(2, 'fossiceos'),
+(3, 'canaliculatus'),
+(4, 'terminatus'),
+(5, 'bruneiventris');
 
 -- --------------------------------------------------------
 
@@ -192,41 +193,37 @@ CREATE TABLE `users` (
   `full_name` varchar(100) NOT NULL,
   `email` varchar(100) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `role` int(11) NOT NULL,
-  `question` varchar(200) NOT NULL,
-  `answer` varchar(200) NOT NULL
+  `role` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`user_ID`, `username`, `full_name`, `email`, `password`, `role`, `question`, `answer`) VALUES
-(1, 'Jeff', 'Jeff Rickson', 'jeff123@gmail.com', '$2y$10$OiYwVa0dWPnmkbFxszVZme9XFjt7VuVAgKjpR5qkLBPizX11Hde/u', 1, '', ''),
-(2, 'patrick', 'Patrick Adams', 'patric@yahoo.com', '$2y$10$SbX0cFYUhLngJKUXllhs2uj7bIJLpzrH/Zdnd0Hwfy2Kgw63ZaT0C', 1, '', ''),
-(3, 'kenneth', 'James Kenneth', 'ken123@gmail.com', '$2y$10$wBG8KFa6p6WRpK7Xm3bXMOesb53Bx33VOEuoiO.tSnECEJbWdO0mC', 2, 'What is your favorite movie?', 'Jail Break'),
-(4, 'annet', 'Annet Jane', 'annet@yahoo.com', '$2y$10$aKDXRlrbxTuBuskHMho5UeqkxwYrc6FtN7XqVCecN32Ezd.gzsfTC', 2, 'In what city or town does your nearest sibling live?', 'Entebbe');
+INSERT INTO `users` (`user_ID`, `username`, `full_name`, `email`, `password`, `role`) VALUES
+(1, 'Jeff', 'Jeff Rickson', 'jeff123@gmail.com', '$2y$10$OiYwVa0dWPnmkbFxszVZme9XFjt7VuVAgKjpR5qkLBPizX11Hde/u', 1),
+(2, 'patrick', 'Patrick Adams', 'patric@yahoo.com', '$2y$10$SbX0cFYUhLngJKUXllhs2uj7bIJLpzrH/Zdnd0Hwfy2Kgw63ZaT0C', 1);
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `family`
+-- Indexes for table `Family`
 --
-ALTER TABLE `family`
+ALTER TABLE `Family`
   ADD PRIMARY KEY (`family_Id`);
 
 --
--- Indexes for table `genus`
+-- Indexes for table `Genus`
 --
-ALTER TABLE `genus`
+ALTER TABLE `Genus`
   ADD PRIMARY KEY (`genus_id`);
 
 --
--- Indexes for table `insects`
+-- Indexes for table `Insects`
 --
-ALTER TABLE `insects`
+ALTER TABLE `Insects`
   ADD PRIMARY KEY (`insect_Id`),
   ADD KEY `Insects_Species` (`species_Id`),
   ADD KEY `Insects_Order` (`order_Id`),
@@ -234,9 +231,9 @@ ALTER TABLE `insects`
   ADD KEY `Insects_Genus` (`genus_Id`);
 
 --
--- Indexes for table `order`
+-- Indexes for table `Order`
 --
-ALTER TABLE `order`
+ALTER TABLE `Order`
   ADD PRIMARY KEY (`order_Id`);
 
 --
@@ -246,9 +243,9 @@ ALTER TABLE `role`
   ADD PRIMARY KEY (`role_ID`);
 
 --
--- Indexes for table `species`
+-- Indexes for table `Species`
 --
-ALTER TABLE `species`
+ALTER TABLE `Species`
   ADD PRIMARY KEY (`species_Id`);
 
 --
@@ -262,24 +259,24 @@ ALTER TABLE `users`
 --
 
 --
--- AUTO_INCREMENT for table `family`
+-- AUTO_INCREMENT for table `Family`
 --
-ALTER TABLE `family`
-  MODIFY `family_Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+ALTER TABLE `Family`
+  MODIFY `family_Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 --
--- AUTO_INCREMENT for table `genus`
+-- AUTO_INCREMENT for table `Genus`
 --
-ALTER TABLE `genus`
-  MODIFY `genus_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+ALTER TABLE `Genus`
+  MODIFY `genus_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
--- AUTO_INCREMENT for table `insects`
+-- AUTO_INCREMENT for table `Insects`
 --
-ALTER TABLE `insects`
-  MODIFY `insect_Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+ALTER TABLE `Insects`
+  MODIFY `insect_Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
--- AUTO_INCREMENT for table `order`
+-- AUTO_INCREMENT for table `Order`
 --
-ALTER TABLE `order`
+ALTER TABLE `Order`
   MODIFY `order_Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `role`
@@ -287,27 +284,27 @@ ALTER TABLE `order`
 ALTER TABLE `role`
   MODIFY `role_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
--- AUTO_INCREMENT for table `species`
+-- AUTO_INCREMENT for table `Species`
 --
-ALTER TABLE `species`
+ALTER TABLE `Species`
   MODIFY `species_Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `user_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- Constraints for dumped tables
 --
 
 --
--- Constraints for table `insects`
+-- Constraints for table `Insects`
 --
-ALTER TABLE `insects`
-  ADD CONSTRAINT `Insects_Family` FOREIGN KEY (`family_Id`) REFERENCES `family` (`family_Id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `Insects_Genus` FOREIGN KEY (`genus_Id`) REFERENCES `genus` (`genus_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `Insects_Order` FOREIGN KEY (`order_Id`) REFERENCES `order` (`order_Id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `Insects_Species` FOREIGN KEY (`species_Id`) REFERENCES `species` (`species_Id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `Insects`
+  ADD CONSTRAINT `Insects_Family` FOREIGN KEY (`family_Id`) REFERENCES `Family` (`family_Id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `Insects_Genus` FOREIGN KEY (`genus_Id`) REFERENCES `Genus` (`genus_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `Insects_Order` FOREIGN KEY (`order_Id`) REFERENCES `Order` (`order_Id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `Insects_Species` FOREIGN KEY (`species_Id`) REFERENCES `Species` (`species_Id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

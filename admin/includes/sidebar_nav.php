@@ -20,18 +20,7 @@
           <!--<a href="#"><i class="fa fa-circle text-success"></i> Online</a>-->
         </div>
       </div>
-      <!-- search form -->
-      <!--<form action="#" method="get" class="sidebar-form">
-        <div class="input-group">
-          <input type="text" name="q" class="form-control" placeholder="Search...">
-              <span class="input-group-btn">
-                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
-                </button>
-              </span>
-        </div>
-      </form>-->
-      <!-- /.search form -->
-      <!-- sidebar menu: : style can be found in sidebar.less -->
+
       <ul class="sidebar-menu">
         <li class="header">INSECT COLLECTION APPLICATION</li>
         
@@ -62,6 +51,32 @@
             <li><a href="order_list.php"><i class="fa fa-circle-o"></i> Order List</a></li>
           </ul>
         </li>
+
+        <li class="treeview">
+          <a href="#">
+              <i class="fa fa-cogs"></i> <span>FAMILY</span>
+              <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+          </a>
+          <ul class="treeview-menu">
+              <li><a href="add_family.php"><i class="fa fa-circle-o"></i> Add New Insect Family</a></li>
+              <li><a href="family_list.php"><i class="fa fa-circle-o"></i> Family List</a></li>
+          </ul>
+        </li>
+
+        <li class="treeview">
+          <a href="#">
+              <i class="fa fa-group"></i> <span>GENUS</span>
+              <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+              </span>
+          </a>
+          <ul class="treeview-menu">
+              <li><a href="add_genus.php"><i class="fa fa-circle-o"></i> Add New Insect Genus</a></li>
+              <li><a href="genus_list.php"><i class="fa fa-circle-o"></i> Genus List</a></li>
+          </ul>
+        </li>
         
         <li class="treeview">
           <a href="#">
@@ -75,33 +90,7 @@
             <li><a href="species_list.php"><i class="fa fa-circle-o"></i> Species List</a></li>
           </ul>
         </li>
-        
-        <li class="treeview">
-          <a href="#">
-            <i class="fa fa-cogs"></i> <span>FAMILY</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li><a href="add_family.php"><i class="fa fa-circle-o"></i> Add New Insect Family</a></li>
-            <li><a href="family_list.php"><i class="fa fa-circle-o"></i> Family List</a></li>
-          </ul>
-        </li>
-        
-        <li class="treeview">
-          <a href="#">
-            <i class="fa fa-group"></i> <span>GENUS</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li><a href="add_genus.php"><i class="fa fa-circle-o"></i> Add New Insect Genus</a></li>
-            <li><a href="genus_list.php"><i class="fa fa-circle-o"></i> Genus List</a></li>
-          </ul>
-        </li>
-        
+
     </section>
     <!-- /.sidebar -->
   </aside>

@@ -93,11 +93,7 @@
       </div>
       <div class="row">
         <div class="col-xs-8">
-          <!--<div class="checkbox icheck">
-            <label>
-              <input type="checkbox"> Remember Me
-            </label>
-          </div>-->
+            <a href="reset_password.php" class="btn btn-danger btn-sm">Forgot Password</a>
         </div>
         <!-- /.col -->
         <div class="col-xs-4">
