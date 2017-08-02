@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 31, 2017 at 10:39 AM
+-- Generation Time: Aug 02, 2017 at 02:41 PM
 -- Server version: 10.1.21-MariaDB
 -- PHP Version: 7.0.15
 
@@ -192,16 +192,20 @@ CREATE TABLE `users` (
   `full_name` varchar(100) NOT NULL,
   `email` varchar(100) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `role` int(11) NOT NULL
+  `role` int(11) NOT NULL,
+  `question` varchar(200) NOT NULL,
+  `answer` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`user_ID`, `username`, `full_name`, `email`, `password`, `role`) VALUES
-(1, 'Jeff', 'Jeff Rickson', 'jeff123@gmail.com', '$2y$10$OiYwVa0dWPnmkbFxszVZme9XFjt7VuVAgKjpR5qkLBPizX11Hde/u', 1),
-(2, 'patrick', 'Patrick Adams', 'patric@yahoo.com', '$2y$10$SbX0cFYUhLngJKUXllhs2uj7bIJLpzrH/Zdnd0Hwfy2Kgw63ZaT0C', 1);
+INSERT INTO `users` (`user_ID`, `username`, `full_name`, `email`, `password`, `role`, `question`, `answer`) VALUES
+(1, 'Jeff', 'Jeff Rickson', 'jeff123@gmail.com', '$2y$10$OiYwVa0dWPnmkbFxszVZme9XFjt7VuVAgKjpR5qkLBPizX11Hde/u', 1, '', ''),
+(2, 'patrick', 'Patrick Adams', 'patric@yahoo.com', '$2y$10$SbX0cFYUhLngJKUXllhs2uj7bIJLpzrH/Zdnd0Hwfy2Kgw63ZaT0C', 1, '', ''),
+(3, 'kenneth', 'James Kenneth', 'ken123@gmail.com', '$2y$10$wBG8KFa6p6WRpK7Xm3bXMOesb53Bx33VOEuoiO.tSnECEJbWdO0mC', 2, 'What is your favorite movie?', 'Jail Break'),
+(4, 'annet', 'Annet Jane', 'annet@yahoo.com', '$2y$10$aKDXRlrbxTuBuskHMho5UeqkxwYrc6FtN7XqVCecN32Ezd.gzsfTC', 2, 'In what city or town does your nearest sibling live?', 'Entebbe');
 
 --
 -- Indexes for dumped tables
@@ -261,12 +265,12 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `family`
 --
 ALTER TABLE `family`
-  MODIFY `family_Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `family_Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT for table `genus`
 --
 ALTER TABLE `genus`
-  MODIFY `genus_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `genus_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 --
 -- AUTO_INCREMENT for table `insects`
 --
@@ -291,7 +295,7 @@ ALTER TABLE `species`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `user_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- Constraints for dumped tables
 --
