@@ -2,3 +2,18 @@
 .with-errors {
     color: #ff0000;
 }
+
+table {
+    table-layout:fixed;
+}
+
+td {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+}
+
+table th td
+{
+    font-size:5px;
+}

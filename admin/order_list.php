@@ -62,7 +62,7 @@
                     
                     <div class='box-body'>
                         
-                        <table class="table table-responsive table-bordered" id="content_list">
+                        <table class="table table-bordered table-condensed" id="content_list">
                             
                             <thead>
                                 <tr>

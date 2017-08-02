@@ -36,8 +36,8 @@
       <h2 class="media-heading"><?php echo $insect_record['image']; ?></h2>
       <p>Order:  <?php echo $insect_record['order_name']; ?></p>
       <p>Family:  <?php echo $insect_record['family_name']; ?></p>
-      <p>Species:  <?php echo $insect_record['species_name']; ?></p>
       <p>Genus:  <?php echo $insect_record['genus_name']; ?></p>
+      <p>Species:  <?php echo $insect_record['species_name']; ?></p>
       <p>Date Collected:  <?php echo $insect_record['doc']; ?></p>
     </div>
  </div>

@@ -21,6 +21,13 @@
             $this->conn = new mysqli($this->host, $this->user, $this->pass, $this->db_name);
             
         }
+
+        /* method to sanitize against sql injections */
+        public function escape_string($string) {
+            $escaped_string = $this->conn->real_escape_string($string);
+
+            return $escaped_string;
+        }
         
         /* inserting database into the database */
         
@@ -45,6 +52,18 @@
             
             if($result->num_rows > 0) {
                 return $result;
+            }else {
+                return false;
+            }
+        }
+
+        /* select_one query */
+        public function select_one($query) {
+            $result = $this->conn->query($query);
+
+            if($result->num_rows > 0) {
+                /* returning query object */
+                return $result->fetch_object();
             }else {
                 return false;
             }
