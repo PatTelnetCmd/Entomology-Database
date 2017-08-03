@@ -14,7 +14,7 @@
     /* fetching genus list from the databse */
     /*$sql_select_insects = "SELECT * FROM Insects";*/
     $sql_select_insects = "SELECT i.insect_Id, o.order_name, f.family_name, s.species_name, g.genus_name, ";
-    $sql_select_insects .= "CONCAT(g.genus_name, '-', s.species_name) AS Name, ";
+    $sql_select_insects .= "CONCAT(g.genus_name, ' ', s.species_name) AS Name, ";
     $sql_select_insects .= "i.AC_NO, i.country, i.location, i.coordinates, i.collector, i.doc ";
 	$sql_select_insects .= "FROM Insects AS i ";
     $sql_select_insects .= "JOIN `Order` AS o ON i.order_Id = o.order_Id ";
@@ -94,7 +94,7 @@
                                     <th>Genus</th>
                                     <th>Species</th>
                                     <th>Name</th>
-                                    <th>Collector</th>
+                                    <!--<th>Collector</th>-->
                                     <th>D.O.C</th>
                                     <th>Actions</th>
                                 </tr>                      
@@ -114,8 +114,8 @@
                                         <td><?php echo $insect['family_name']; ?></td>
                                         <td><?php echo $insect['genus_name']; ?></td>
                                         <td><?php echo $insect['species_name']; ?></td>
-                                        <td><?php echo $insect['Name']; ?></td>
-                                        <td><?php echo $insect['collector']; ?></td>
+                                        <td><i><?php echo $insect['Name']; ?></i></td>
+                                        <!--<td><?php //echo $insect['collector']; ?></td>-->
                                         <td><?php echo $insect['doc']; ?></td>
 
                                         <td>
