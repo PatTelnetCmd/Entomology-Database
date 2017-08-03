@@ -1,114 +1,81 @@
 <?php
-session_start();
-//checking if user is logged in
-//if(isset($_SESSION['userSession']) != ""){
-//    header("Location: dashboard.php");
-//}
+    session_start();
+    //checking if user is logged in
+    //if(isset($_SESSION['userSession']) != ""){
+    //    header("Location: dashboard.php");
+    //}
 
-require_once '../libs/config.php';
-require_once '../libs/database.php';
-require 'includes/functions.php';
+    require_once '../libs/config.php';
+    require_once '../libs/database.php';
+    require 'includes/functions.php';
 
-$db = new database();
+    $db = new database();
 
-$usernameErr = $confirmpassErr = $passErr = $roleErr = $questionErr = $answerErr = "";
-$username = $confirmpass = $password = $role = $question = $answer =  "";
+    $usernameErr = $confirmpassErr = $passErr = $roleErr = $questionErr = $answerErr = "";
+    $username = $confirmpass = $password = $role = $question = $answer =  "";
 
-if(isset($_POST['register'])){
-    //$user_code = $db->real_escape_string(trim($_POST['user_id']));
-    if(empty($_POST['username'])){
-        $usernameErr = "*Username is required";
-    }else{
-        $username = test_input($_POST['username']);
-        //check if username contains only letters and whitespace
-        if (!preg_match("/^[a-zA-Z ]*$/",$username)) {
-            $usernameErr = "Only letters and white space allowed";
-        }
+
+    if(isset($_SESSION['userSession']) != ""){
+        header('Location: dashboard.php');
+        exit();
     }
 
-    if(empty($_POST['password'])) {
-        $passErr = "*Fill in password please!";
-    }else {
-        $password = test_input($_POST['password']);
-    }
+    if(isset($_POST['update'])){
+        $user          = trim($_POST['username']);
+        $user_password = trim($_POST['password']);
+        $new_password  = trim($_POST['confirmpass']);
+        $answer        = ucfirst(trim($_POST['answer']));
+        $answer_given  = ucfirst(trim($_POST['answer_given']));
 
-    if(empty($_POST['confirmpass'])) {
-        $confirmpassErr = "*Confirm password please!";
-    }else {
-        $confirmpass = test_input($_POST['confirmpass']);
-    }
+        if(empty($answer)) {
+            $answerErr = "Please provide an answer to the question";
+        }else {
+            $answer_verify = $db->select_one("SELECT answer FROM users WHERE username = '$user'");
 
-    if(empty($_POST['question'])) {
-        $questionErr = '*Select question please';
-    }else {
-        $question = test_input($_POST['question']);
-    }
+            //verify answer to the security question
+            if($answer != $answer_given) {
+                $answerErr = "Wrong answer provided to the question!";
+            }else {
 
-    if(empty($_POST['answer'])) {
-        $answerErr = '*Fill in answer for the question';
-    }else {
-        $answer = test_input($_POST['answer']);
-    }
+                //password fields must not be empty
+                if(empty($user_password) || empty($new_password)) {
+                    $confirmpassErr = "Please fill all the password fields!";
+                }else {
 
-    //var_dump($_POST);
+                    //verifying that password values match
+                    if($user_password != $new_password) {
+                        $confirmpassErr = 'Passwords fields donot match!';
+                    }else{
+                        //verifying username and password
+                        $verify_query = $db->select_one("SELECT * FROM users WHERE username = '$user'");
+                        //$row = $verify_query->fetch_array();
 
-    //checking if input boxes are empty
-    if(empty($_POST['username']) || empty($_POST['full_name']) || empty($_POST['email']) || empty($_POST['password']) || empty($_POST['role']) || empty($_POST['question']) || empty($_POST['answer'])) {
-        $msg = "<div class='alert alert-danger'>
-                          <span class='glyphicon glyphicon-info-sign'></span> &nbsp; All fields must be filled!
-                         </div>";
-    }else {
+                        //$verify_pass = password_verify($user_password, $row['password']);
 
-        if(empty($usernameErr) && empty($fullnameErr) && empty($emailErr) && empty($passErr) && empty($roleErr) && empty($questionErr) && empty($answerErr)) {
+                        if($verify_query){
+                            //encrypting password
+                            $hash_passwd = password_hash($user_password, PASSWORD_DEFAULT);
+                            $update_pass = $db->update("UPDATE users SET password = '$hash_passwd' WHERE username = '$user'");
 
-            $count = 0;
+                            if($update_pass) {
+                                $msg = "<div class='alert alert-success'>
+                              <span class='glyphicon glyphicon-info-sign'></span> &nbsp; Your password has been updated. Please you can proceed to login
+                             </div>";
+                            }
 
-            //encrypting password
-            $hash_passwd = password_hash($password, PASSWORD_DEFAULT);
+                        }else{
+                            $msg = "<div class='alert alert-danger'>
+                              <span class='glyphicon glyphicon-info-sign'></span> &nbsp; User does not exit!
+                             </div>";
+                        }
+                    }
 
-            //checking if username and email already exists
-            $check_user_email = $db->select("SELECT username, email FROM users WHERE username = '$username'
-                  AND email = '$email'");
-            if($check_user_email):
-                $count = $check_user_email->num_rows;
-            endif;
-
-            if($count == 0){
-                //registering users into the database
-                $insert_query = "INSERT INTO users(username, full_name, email,password, role, question, answer)
-                      VALUES('$username', '$fullname', '$email', '$hash_passwd', $role, '$question', '$answer')";
-
-                $query = $db->insert($insert_query);
-
-                if($insert_query){
-                    $msg = "<div class='alert alert-success'>
-                                  <span class='glyphicon glyphicon-info-sign'></span> &nbsp; Successfully registered !
-                                 </div>";
-                    $username = $fullname = $email = $password = $role = $question = $answer = "";
-
-                }else{
-                    $msg = "<div class='alert alert-danger'>
-                                  <span class='glyphicon glyphicon-info-sign'></span> &nbsp; Error while registering !
-                                 </div>";
                 }
 
-            }else{
-                $msg = "<div class='alert alert-danger'>
-                             <span class='glyphicon glyphicon-info-sign'></span> &nbsp; Sorry username or email already taken !
-                            </div>";
-
             }
-
-        }else {
-            $msg = "<div class='alert alert-danger'>
-                             <span class='glyphicon glyphicon-info-sign'></span> &nbsp; Form has errors!
-                            </div>";
         }
 
     }
-
-    //$db->close();
-}
 
 ?>
 
@@ -172,16 +139,20 @@ if(isset($_POST['register'])){
         <form action="" method="post">
 
             <div class="form-group has-feedback">
-                <input type="text" class="form-control" name="username" value="<?php echo $username; ?>" placeholder="Username">
+                <input type="text" class="form-control" id="user" name="username" value="<?php echo $username; ?>" placeholder="Username" autocomplete="off">
                 <span class="glyphicon glyphicon-user form-control-feedback"></span>
                 <div class="help-block with-errors"><?php echo $usernameErr; ?></div>
             </div>
             <div class="form-group has-feedback">
-                <input type="text" class="form-control" name="question" placeholder="Security question">
+                <input type="text" id="question" class="form-control" name="question" placeholder="Security question">
                 <div class="help-block with-errors"><?php echo $questionErr; ?></div>
             </div>
             <div class="form-group has-feedback">
-                <input type="text" class="form-control" name="answer" placeholder="Answer to your security question">
+                <input type="hidden" class="form-control" id="answer_given" name="answer_given">
+                <span class="glyphicon glyphicon-question-sign form-control-feedback"></span>
+            </div>
+            <div class="form-group has-feedback">
+                <input type="text" class="form-control" id="answer" name="answer" placeholder="Answer to your security question" autocomplete="off">
                 <span class="glyphicon glyphicon-question-sign form-control-feedback"></span>
                 <div class="help-block with-errors"><?php echo $answerErr; ?></div>
             </div>
@@ -202,7 +173,7 @@ if(isset($_POST['register'])){
                 </div>
                 <!-- /.col -->
                 <div class="col-xs-4">
-                    <button type="submit" name="register" class="btn btn-primary btn-block btn-flat">Register</button>
+                    <button type="submit" name="update" class="btn btn-primary btn-block btn-flat">Update</button>
                 </div>
                 <!-- /.col -->
             </div>
@@ -228,6 +199,35 @@ if(isset($_POST['register'])){
             increaseArea: '20%' // optional
         });
     });
+</script>
+<script>
+
+    $(document).ready(function(){
+        $('#user').on('keyup change',function(){
+            var user = $(this).val();
+            /*console.log(user);
+            $.get('getuser_security_details.php?user='+user+'',function(data){
+             if(data)
+             {
+             console.log(data);
+             }
+             });*/
+            $.ajax({
+                url : "getuser_security_details.php",
+                dataType: 'json',
+                type: 'POST',
+                //async : false,
+                data : { user : user},
+                success : function(result) {
+                    //console.log(result);
+                    $('#question').val(result.question);
+                    $('#answer_given').val(result.answer);
+                }
+            });
+
+        });
+    });
+
 </script>
 </body>
 </html>

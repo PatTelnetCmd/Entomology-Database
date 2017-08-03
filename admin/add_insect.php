@@ -35,7 +35,6 @@
         $genus       = $_POST['insect_genus'];
         $species     = $_POST['insect_species'];
         $sub_fam     = $_POST['sub_fam'];
-        $auth        = $_POST['auth'];
         $ac_no       = $_POST['ac_no'];
         $country     = $_POST['country'];
         $location    = $_POST['location'];
@@ -53,35 +52,19 @@
         
         
         $msg = '';
-        
-        //if(empty($order)){
-        //    $msg = 'Please insert order field!';
-        //    //echo $msg;
-        //}
-        //else{
-            
-            //$sql_select = "SELECT * FROM Insects WHERE order_name = '{$order}'";
-            //$run_query = $db->select($sql_select);
-            
-            //if($run_query){
-            //    $msg = "{$order} already exists";
-            //}else {
-            
-                move_uploaded_file($image_tmp, "../insect_images/$image");
-                $message = '';
-                $sql_insert  = "INSERT INTO Insects(CB, STB, order_Id, family_Id, genus_id, species_Id, sub_family, auth, AC_NO, country, location, ";
-                $sql_insert .= "coordinates, doc, collector, identifier, image, preserv, others)";
-                $sql_insert .= "  VALUES({$cb}, {$stb}, {$order}, {$family}, {$genus}, {$species}, '{$sub_fam}', '{$auth}', '{$ac_no}', '{$country}', ";
-                $sql_insert .= "'{$location}', '{$coordinates}', '{$doc}', '{$collector}', '{$identifier}', '{$image}', '{$preserv}', '{$others}')";
-                $run_query = $db->insert($sql_insert);
-                
-                if($run_query) {
-                    $message = 'Insect successfully added';
-                   redirect_to('insect_list.php', $message);
-                }
-        //    }           
-        //    
-        //}
+
+        move_uploaded_file($image_tmp, "../insect_images/$image");
+        $message = '';
+        $sql_insert  = "INSERT INTO Insects(CB, STB, order_Id, family_Id, genus_id, species_Id, sub_family, AC_NO, country, location, ";
+        $sql_insert .= "coordinates, doc, collector, identifier, image, preserv, others)";
+        $sql_insert .= "  VALUES({$cb}, {$stb}, {$order}, {$family}, {$genus}, {$species}, '{$sub_fam}', '{$ac_no}', '{$country}', ";
+        $sql_insert .= "'{$location}', '{$coordinates}', '{$doc}', '{$collector}', '{$identifier}', '{$image}', '{$preserv}', '{$others}')";
+        $run_query = $db->insert($sql_insert);
+
+        if($run_query) {
+            $message = 'Insect successfully added';
+           redirect_to('insect_list.php', $message);
+        }
     }
 
 ?>
@@ -205,14 +188,7 @@
                                         <input type="text" id="sub_fam" name="sub_fam" class="form-control" placeholder="Sub Family">
                                     </div>
                                 </div>
-                                
-                                <div class="form-group">
-                                    <label class="col-sm-3 control-label" for="auth">Auth</label>
-                                    <div class="col-sm-9">
-                                        <input type="text" id="auth" name="auth" class="form-control" placeholder="Auth">
-                                    </div>
-                                </div>
-                                
+
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label" for="ac_no">AC_NO</label>
                                     <div class="col-sm-9">
