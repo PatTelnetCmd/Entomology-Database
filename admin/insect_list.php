@@ -94,7 +94,7 @@
                                     <th>Genus</th>
                                     <th>Species</th>
                                     <th>Name</th>
-                                    <th>Collector</th>
+                                    <!--<th>Collector</th>-->
                                     <th>D.O.C</th>
                                     <th>Actions</th>
                                 </tr>                      
@@ -115,7 +115,7 @@
                                         <td><?php echo $insect['genus_name']; ?></td>
                                         <td><?php echo $insect['species_name']; ?></td>
                                         <td><?php echo $insect['Name']; ?></td>
-                                        <td><?php echo $insect['collector']; ?></td>
+                                        <!--<td><?php //echo $insect['collector']; ?></td>-->
                                         <td><?php echo $insect['doc']; ?></td>
 
                                         <td>
