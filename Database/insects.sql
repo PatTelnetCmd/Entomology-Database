@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 02, 2017 at 07:32 PM
+-- Generation Time: Aug 03, 2017 at 04:57 AM
 -- Server version: 10.1.21-MariaDB
 -- PHP Version: 7.0.15
 
@@ -90,7 +90,6 @@ CREATE TABLE `insects` (
   `genus_Id` int(11) NOT NULL,
   `species_Id` int(11) NOT NULL,
   `sub_family` varchar(255) NOT NULL,
-  `auth` varchar(255) NOT NULL,
   `AC_NO` varchar(255) NOT NULL,
   `country` varchar(255) NOT NULL,
   `location` varchar(255) NOT NULL,
@@ -107,15 +106,16 @@ CREATE TABLE `insects` (
 -- Dumping data for table `insects`
 --
 
-INSERT INTO `insects` (`insect_Id`, `CB`, `STB`, `order_Id`, `family_Id`, `genus_Id`, `species_Id`, `sub_family`, `auth`, `AC_NO`, `country`, `location`, `coordinates`, `doc`, `collector`, `identifier`, `image`, `preserv`, `Others`) VALUES
-(1, 1, 1, 2, 3, 4, 3, 'Protea', 'burg', 'B4959', 'Uganda', 'Uganda', 'in flight', '02/03/2016', 'Ricks', 'C.M.F Van Hayek det1967', 'ABS_SELECT.png', 'pin', ''),
-(2, 1, 2, 2, 6, 4, 2, '', 'cand', 'B4978', 'Uganda', 'Uganda', 'in car', '03/01/2016', 'K.W.Browns', 'C.M.F Van Hayek det1964', 'insects3.jpg', 'pin', ''),
-(3, 2, 3, 2, 1, 1, 1, '', 'fleunt', 'B3456', 'Tanzania', 'Ddodoma', 'on shrub', '23/01/2017', 'K.W.Brown', 'C.M.F Van Hayek det1987', 'strings_mysql.png', 'pin', ''),
-(4, 2, 3, 3, 4, 5, 4, '', 'hope', 'B3446', 'Uganda', 'Nakawa', 'on shrub', '28/02/2017', 'K.W.Brown', 'C.M.F Van Hayek det1967', 'ant.jpg', 'pin', ''),
-(5, 3, 2, 5, 2, 3, 2, 'protrxin', 'fleunt', 'B3239', 'Tanzania', 'Ddodoma', 'on shrub', '08/11/2016', 'K.W.Brown', 'C.M.F Van Hayek det1967', 'sharp.jpg', 'pin', ''),
-(6, 2, 1, 1, 2, 2, 2, '', 'burg', 'B2345', 'Uganda', 'Uganda', 'in car', '03/12/2016', 'K.W.Brown', 'C.M.F Van Hayek det1969', 'hopper.jpg', 'pin', ''),
-(7, 1, 1, 4, 6, 7, 5, 'Protea', 'burg', 'B3232', 'Tanzania', 'Mombasa', 'on shrub', '14/06/2016', 'k.W.Kevin', 'C.M.F Van Hayek det1987', 'fly.jpg', 'pin', ''),
-(8, 2, 3, 2, 2, 2, 3, '', 'burg', 'CW-0838939', 'Uganda', 'Kawempe', '23078', '29/07/2017', 'Ken W James', 'KW Organ', '', '', '');
+INSERT INTO `insects` (`insect_Id`, `CB`, `STB`, `order_Id`, `family_Id`, `genus_Id`, `species_Id`, `sub_family`, `AC_NO`, `country`, `location`, `coordinates`, `doc`, `collector`, `identifier`, `image`, `preserv`, `Others`) VALUES
+(1, 1, 1, 2, 3, 4, 3, 'Protea', 'B4959', 'Uganda', 'Uganda', 'in flight', '02/03/2016', 'Ricks', 'C.M.F Van Hayek det1967', 'ABS_SELECT.png', 'pin', ''),
+(2, 1, 2, 2, 6, 4, 2, '', 'B4978', 'Uganda', 'Uganda', 'in car', '03/01/2016', 'K.W.Browns', 'C.M.F Van Hayek det1964', 'insects3.jpg', 'pin', ''),
+(3, 2, 3, 2, 1, 1, 1, '', 'B3456', 'Tanzania', 'Ddodoma', 'on shrub', '23/01/2017', 'K.W.Brown', 'C.M.F Van Hayek det1987', 'strings_mysql.png', 'pin', ''),
+(4, 2, 3, 3, 4, 5, 4, '', 'B3446', 'Uganda', 'Nakawa', 'on shrub', '28/02/2017', 'K.W.Brown', 'C.M.F Van Hayek det1967', 'ant.jpg', 'pin', ''),
+(5, 3, 2, 5, 2, 3, 2, 'protrxin', 'B3239', 'Tanzania', 'Ddodoma', 'on shrub', '08/11/2016', 'K.W.Brown', 'C.M.F Van Hayek det1967', 'sharp.jpg', 'pin', ''),
+(6, 2, 1, 1, 2, 2, 2, '', 'B2345', 'Uganda', 'Uganda', 'in car', '03/12/2016', 'K.W.Brown', 'C.M.F Van Hayek det1969', 'hopper.jpg', 'pin', ''),
+(7, 1, 1, 4, 6, 7, 5, 'Protea', 'B3232', 'Tanzania', 'Mombasa', 'on shrub', '14/06/2016', 'k.W.Kevin', 'C.M.F Van Hayek det1987', 'fly.jpg', 'pin', ''),
+(8, 2, 3, 2, 2, 2, 3, '', 'CW-0838939', 'Uganda', 'Kawempe', '23078', '29/07/2017', 'Ken W James', 'KW Organ', '', '', ''),
+(9, 1, 2, 1, 2, 3, 1, '', '7890', 'Kenya', 'Nairobi', 'Swamp', '03/08/2017', 'James', 'Henry', 'hike.png', '', '');
 
 -- --------------------------------------------------------
 
@@ -205,7 +205,7 @@ INSERT INTO `users` (`user_ID`, `username`, `full_name`, `email`, `password`, `r
 (1, 'Jeff', 'Jeff Rickson', 'jeff123@gmail.com', '$2y$10$OiYwVa0dWPnmkbFxszVZme9XFjt7VuVAgKjpR5qkLBPizX11Hde/u', 1, '', ''),
 (2, 'patrick', 'Patrick Adams', 'patric@yahoo.com', '$2y$10$SbX0cFYUhLngJKUXllhs2uj7bIJLpzrH/Zdnd0Hwfy2Kgw63ZaT0C', 1, '', ''),
 (3, 'kenneth', 'James Kenneth', 'ken123@gmail.com', '$2y$10$wBG8KFa6p6WRpK7Xm3bXMOesb53Bx33VOEuoiO.tSnECEJbWdO0mC', 2, 'What is your favorite movie?', 'Jail Break'),
-(4, 'annet', 'Annet Jane', 'annet@yahoo.com', '$2y$10$aKDXRlrbxTuBuskHMho5UeqkxwYrc6FtN7XqVCecN32Ezd.gzsfTC', 2, 'In what city or town does your nearest sibling live?', 'Entebbe'),
+(4, 'annet', 'Annet Jane', 'annet@yahoo.com', '$2y$10$ZvwX6m.qcdPceMlqtN2/4OVxtnTqzZOJte4XwtEJ7Nkhdu44SSPm2', 2, 'In what city or town does your nearest sibling live?', 'Entebbe'),
 (5, 'rogers', 'Rogers Becks', 'roger@gmail.com', '$2y$10$fGcgbhlWhKC5xTi8PJ.isO.U3lM0izNypnKCuyv6ebcaBLtqXkhLy', 2, 'What is your favorite movie?', 'Avatar');
 
 --
@@ -276,7 +276,7 @@ ALTER TABLE `genus`
 -- AUTO_INCREMENT for table `insects`
 --
 ALTER TABLE `insects`
-  MODIFY `insect_Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `insect_Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT for table `order`
 --
